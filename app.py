@@ -73,4 +73,4 @@ def download_category(category):
     return send_file(memory_file, attachment_filename=f'{category}.zip', as_attachment=True, mimetype='application/zip')
 
 if __name__ == '__main__':
-    app.run(port=8888)
+    app.run(host='0.0.0.0', port=8888)

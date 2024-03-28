@@ -28,7 +28,7 @@ def clear_directory(dir_path):
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        #先清理下
+        # 先清理下
         clear_directory(app.config['UPLOAD_FOLDER'])
         clear_directory(app.config['UNZIP_FOLDER'])
         # 处理上传的文件
@@ -76,6 +76,8 @@ def download_category(category):
                 zf.write(file_path, arcname=file)
     memory_file.seek(0)
     return send_file(memory_file, download_name=f'{category}.zip', as_attachment=True, mimetype='application/zip')
+
+# 这里打包完返回时检查一下Flask库是不是最新
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8888)

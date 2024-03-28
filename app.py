@@ -4,20 +4,33 @@ import zipfile
 from PIL import Image
 import shutil
 import io
-
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
 UNZIP_FOLDER = 'unzipped'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['UNZIP_FOLDER'] = UNZIP_FOLDER
 
-# 确保上传和解压的文件夹存在
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(UNZIP_FOLDER, exist_ok=True)
+
+def clear_directory(dir_path):
+    for filename in os.listdir(dir_path):
+        file_path = os.path.join(dir_path, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print(f'Failed to delete {file_path}. Reason: {e}')
+# 此处定义一个清除函数，每次Upload前都请一下
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
+        #先清理下
+        clear_directory(app.config['UPLOAD_FOLDER'])
+        clear_directory(app.config['UNZIP_FOLDER'])
         # 处理上传的文件
         if 'file' not in request.files:
             return '没有文件'

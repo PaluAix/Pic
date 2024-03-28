@@ -22,7 +22,7 @@ def clear_directory(dir_path):
             elif os.path.isdir(file_path):
                 shutil.rmtree(file_path)
         except Exception as e:
-            print(f'Failed to delete {file_path}. Reason: {e}')
+            print(f'删除失败 {file_path}. Reason: {e}')
 # 此处定义一个清除函数，每次Upload前都请一下
 
 @app.route('/', methods=['GET', 'POST'])

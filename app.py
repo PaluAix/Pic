@@ -70,7 +70,7 @@ def download_category(category):
                 file_path = os.path.join(root, file)
                 zf.write(file_path, arcname=file)
     memory_file.seek(0)
-    return send_file(memory_file, attachment_filename=f'{category}.zip', as_attachment=True, mimetype='application/zip')
+    return send_file(memory_file, download_name=f'{category}.zip', as_attachment=True, mimetype='application/zip')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8888)

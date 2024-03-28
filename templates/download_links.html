@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Download Images</title>
+</head>
+<body>
+    <h1>Download Classified Images</h1>
+    <ul>
+        {% for category in categories %}
+            <li><a href="{{ url_for('download_category', category=category) }}">Download {{ category }} images</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
